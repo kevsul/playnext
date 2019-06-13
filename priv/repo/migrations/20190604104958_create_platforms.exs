@@ -10,8 +10,7 @@ defmodule Playnext.Repo.Migrations.CreatePlatforms do
 
     create table(:games_platforms) do
       add :game_id, references(:games)
-      add :platforms_id, references(:platforms)
-      timestamps()
+      add :platform_id, references(:platforms)
     end
   end
 end

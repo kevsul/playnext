@@ -11,7 +11,6 @@ defmodule Playnext.Repo.Migrations.CreateTags do
     create table(:games_tags) do
       add :game_id, references(:games)
       add :tag_id, references(:tags)
-      timestamps()
     end
   end
 end

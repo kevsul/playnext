@@ -1,11 +1,14 @@
+alias Playnext.Repo
+alias Playnext.Game
+
 defmodule Playnext.Genre do
   use Ecto.Schema
   import Ecto.Changeset
 
   schema "genres" do
-    field :name, :string
+    field(:name, :string)
 
-    many_to_many :games, Playnext.Game, join_through: "games_genres"
+    many_to_many(:games, Game, join_through: "games_genres")
 
     timestamps()
   end
@@ -17,13 +20,19 @@ defmodule Playnext.Genre do
     |> validate_required([:name])
   end
 
+  @doc false
   def get(name) do
-    found = Playnext.Repo.get_by(Playnext.Genre, name: name)
+    Repo.get_by(__MODULE__, name: name)
+  end
 
-    if found do
-      found
-    else
-      Playnext.Repo.insert!(%Playnext.Genre{name: name})
-    end
+  @doc false
+  def insert(name) do
+    Repo.insert!(%__MODULE__{name: name})
+  end
+
+  @doc false
+  def get_or_insert(name) do
+    found = get(name)
+    if found, do: found, else: insert(name)
   end
 end
