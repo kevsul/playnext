@@ -17,6 +17,11 @@ defmodule PlaynextWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    get "/games", GameController, :get_all
+    get "/game/:id", GameController, :get
+    get "/list/:id", ListController, :get
+
     get "/import-steam", ImportSteamController, :index
   end
 
